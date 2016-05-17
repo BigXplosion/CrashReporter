@@ -14,8 +14,9 @@ import java.io.StringWriter;
 
 import net.minecraft.crash.CrashReport;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.ServerConfigurationManager;
+import net.minecraft.server.management.PlayerList;
 
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 import com.bigxplosion.crashreporter.report.Reporter;
@@ -30,7 +31,7 @@ public class ServerLogHandler implements Appender {
 
 	public static void init() {
 		instance = new ServerLogHandler();
-		((Logger) ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, MinecraftServer.getServer(), "logger", "field_147145_h")).addAppender(instance);
+		((Logger) ObfuscationReflectionHelper.getPrivateValue(MinecraftServer.class, FMLCommonHandler.instance().getMinecraftServerInstance(), "LOG", "field_147145_h")).addAppender(instance);
 		startAppender();
 	}
 
@@ -108,10 +109,11 @@ public class ServerLogHandler implements Appender {
 	}
 
 	private void kickAllPlayers() {
-		ServerConfigurationManager manager = MinecraftServer.getServer().getConfigurationManager();
+		PlayerList list = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 
-		while (!manager.playerEntityList.isEmpty()) {
-			manager.playerEntityList.get(0).playerNetServerHandler.kickPlayerFromServer("Server Crashed");
+		while (!list.getPlayerList().isEmpty()) {
+			list.getPlayerList().get(0).playerNetServerHandler.kickPlayerFromServer("Server Crashed");
+			list.getPlayerList().remove(0);
 		}
 	}
 }
