@@ -1,0 +1,57 @@
+
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            name = "forge"
+            url = "http://files.minecraftforge.net/maven"
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle.forge'
+
+ext.buildProps = file "build.properties"
+
+buildProps.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
+
+version = "${config.version.mod}_${config.version.minecraft}"
+group = "com.bigxplosion.crashreporter"
+archivesBaseName = "CrashReporter"
+
+minecraft {
+    version = "${config.version.minecraft}-${config.version.forge}"
+    runDir = "run"
+
+    replace "@VERSION@", config.version.mod
+
+    mappings = "stable_20"
+}
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    library
+}
+
+dependencies {
+    library group: 'com.sun.mail', name: 'javax.mail', version: '1.5.5'
+
+    configurations.compile.extendsFrom(configurations.library)
+}
+
+jar {
+    from {
+        configurations.library.collect { it.isDirectory() ? it : zipTree(it) }
+    } {
+        exclude "META-INF/LICENSE.txt"
+    }
+}

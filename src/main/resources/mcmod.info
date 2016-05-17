@@ -1,0 +1,16 @@
+[
+{
+  "modid": "CrashReporter",
+  "name": "Crash Reporter",
+  "description": "Crash reporting server utility",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["big_Xplosion"],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
