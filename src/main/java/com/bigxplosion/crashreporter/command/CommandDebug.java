@@ -9,9 +9,7 @@ import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 /**
- * This is a debug command and will not be OFF by default.
- * This command will also only work in a deobfuscated environment
- * because of the ReflectionHelper.
+ * This is a debug command and will be OFF on release.
  */
 public class CommandDebug extends CommandBase {
 

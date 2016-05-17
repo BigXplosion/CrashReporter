@@ -55,6 +55,6 @@ public class CrashReporter {
 		}
 
 		//TODO: ALWAYS remove on release!!!
-		event.registerServerCommand(new CommandDebug());
+		//event.registerServerCommand(new CommandDebug());
 	}
 }
