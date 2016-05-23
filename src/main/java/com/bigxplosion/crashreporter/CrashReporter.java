@@ -16,6 +16,7 @@ import com.bigxplosion.crashreporter.report.ReportRegistry;
 import com.bigxplosion.crashreporter.report.notify.NotifyGMail;
 import com.bigxplosion.crashreporter.report.notify.NotifyGoogleDriveForm;
 import com.bigxplosion.crashreporter.report.notify.NotifyIRC;
+import com.bigxplosion.crashreporter.report.pastebin.Asie;
 import com.bigxplosion.crashreporter.report.pastebin.Hastebin;
 import com.bigxplosion.crashreporter.report.pastebin.Pastebin;
 import com.bigxplosion.crashreporter.report.pastebin.Sprunge;
@@ -42,6 +43,7 @@ public class CrashReporter {
 		ReportRegistry.registerPastebinProvider("hastebin", new Hastebin());
 		ReportRegistry.registerPastebinProvider("sprunge", new Sprunge());
 		ReportRegistry.registerPastebinProvider("ubuntu", new Ubuntu());
+		ReportRegistry.registerPastebinProvider("asie", new Asie());
 
 		ReportRegistry.registerNotificationProvider("irc", new NotifyIRC());
 		ReportRegistry.registerNotificationProvider("googleDriveForm", new NotifyGoogleDriveForm());

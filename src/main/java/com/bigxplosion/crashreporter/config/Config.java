@@ -42,7 +42,7 @@ public class Config {
 	private static void readConfig() {
 		config.load();
 
-		preferredPastebin = config.get("pastebin", "preferredPastebin", "pastebin", "This pastebin will be tried first before the others. Others possible options are: pastebin, hastebin, ubuntu and sprunge.").getString();
+		preferredPastebin = config.get("pastebin", "preferredPastebin", "pastebin", "This pastebin will be tried first before the others. Others possible options are: pastebin, hastebin, ubuntu, sprunge and asie.").getString();
 
 		ircEnabled = config.get("irc", "enabled", false).getBoolean();
 		ircServer = config.get("irc", "server", "irc.esper.net").getString();
