@@ -59,7 +59,7 @@ public class Config {
 		ircLog = config.get("irc", "log", false, "enable the IRC log in the log").getBoolean();
 
 		formEnabled = config.get("googleDriveForm", "enabled", false).getBoolean();
-		formURL = config.get("googleDriveForm", "url", "").getString();
+		formURL = config.get("googleDriveForm", "url", "", "Specify multiple links by separating with a comma").getString();
 
 		config.addCustomCategoryComment("gmail", "When you want to send emails from a gmail adress you need to enable less secure apps for the account: https://www.google.com/settings/security/lesssecureapps");
 		gmailEnabled = config.get("gmail", "enabled", false).getBoolean();

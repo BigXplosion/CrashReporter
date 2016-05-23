@@ -21,36 +21,41 @@ public class NotifyGoogleDriveForm implements INotificationProvider {
 		if (!Config.formEnabled)
 			return;
 
-		String form;
-		try {
-			form = Http.post(new URL(Config.formURL), null).text;
-		} catch (Throwable e) {
-			throw new NotifyException(e);
-		}
+		String[] forms = Config.formURL.trim().split(",");
 
-		Matcher matcher;
+		for (String f : forms) {
 
-		matcher = FORM_PATTERN.matcher(form);
-		matcher.find();
-		String formTarget = matcher.group(1);
-		if (formTarget == null) {
-			throw new NotifyException("Could not find the main form");
-		}
+			String form;
+			try {
+				form = Http.post(new URL(f), null).text;
+			} catch (Throwable e) {
+				throw new NotifyException(e);
+			}
 
-		matcher = INPUT_PATTERN.matcher(form);
-		matcher.find();
-		String input = matcher.group(1);
-		if (input == null) {
-			throw new NotifyException("Could not find a text question on the form");
-		}
+			Matcher matcher;
 
-		Map<String, String> postvars = new HashMap<String, String>(2);
-		postvars.put(input, text);
+			matcher = FORM_PATTERN.matcher(form);
+			matcher.find();
+			String formTarget = matcher.group(1);
+			if (formTarget == null) {
+				throw new NotifyException("Could not find the main form");
+			}
 
-		try {
-			Http.post(new URL(formTarget), postvars);
-		} catch (Throwable e) {
-			throw new NotifyException(e);
+			matcher = INPUT_PATTERN.matcher(form);
+			matcher.find();
+			String input = matcher.group(1);
+			if (input == null) {
+				throw new NotifyException("Could not find a text question on the form");
+			}
+
+			Map<String, String> postvars = new HashMap<String, String>(2);
+			postvars.put(input, text);
+
+			try {
+				Http.post(new URL(formTarget), postvars);
+			} catch (Throwable e) {
+				throw new NotifyException(e);
+			}
 		}
 	}
 }
