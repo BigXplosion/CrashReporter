@@ -14,6 +14,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 import com.bigxplosion.crashreporter.CrashReporter;
+import com.bigxplosion.crashreporter.config.Config;
 
 public class IRC implements Runnable {
 
@@ -61,7 +62,10 @@ public class IRC implements Runnable {
 
 		String l;
 		while((l = in.readLine()) != null) {
-			CrashReporter.INSTANCE.log.log(Level.INFO, "[IRC] " + l);
+
+			if (Config.ircLog) {
+				CrashReporter.INSTANCE.log.log(Level.INFO, "[IRC] " + l);
+			}
 			if (l.startsWith("PING ")) {
 				sendRaw("PONG :" + l.substring(l.indexOf(':') + 1));
 				break;
@@ -152,9 +156,11 @@ public class IRC implements Runnable {
 		quit();
 
 		try {
-			String l;
-			while((l = in.readLine()) != null) {
-				CrashReporter.INSTANCE.log.log(Level.INFO, "[IRC] " + l);
+			if (Config.ircLog) {
+				String l;
+				while ((l = in.readLine()) != null) {
+					CrashReporter.INSTANCE.log.log(Level.INFO, "[IRC] " + l);
+				}
 			}
 
 			close();

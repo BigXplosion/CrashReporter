@@ -22,6 +22,7 @@ public class Config {
 	public static String ircNick;
 	public static List<String> ircChannels;
 	public static String ircMessage;
+	public static boolean ircLog;
 
 	/** GOOGLE DRIVE FORMS **/
 	public static boolean formEnabled;
@@ -55,6 +56,7 @@ public class Config {
 			ircChannels.add(channel);
 		}
 		ircMessage = config.get("irc", "message", "Server Crashed. Find crash report at:").getString();
+		ircLog = config.get("irc", "log", false, "enable the IRC log in the log").getBoolean();
 
 		formEnabled = config.get("googleDriveForm", "enabled", false).getBoolean();
 		formURL = config.get("googleDriveForm", "url", "").getString();
