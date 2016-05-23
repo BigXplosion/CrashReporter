@@ -112,7 +112,7 @@ public class ServerLogHandler implements Appender {
 		PlayerList list = FMLCommonHandler.instance().getMinecraftServerInstance().getPlayerList();
 
 		while (!list.getPlayerList().isEmpty()) {
-			list.getPlayerList().get(0).playerNetServerHandler.kickPlayerFromServer("Server Crashed");
+			list.getPlayerList().get(0).connection.kickPlayerFromServer("Server Crashed");
 			list.getPlayerList().remove(0);
 		}
 	}
