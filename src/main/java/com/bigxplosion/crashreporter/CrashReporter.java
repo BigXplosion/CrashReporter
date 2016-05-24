@@ -1,12 +1,10 @@
 package com.bigxplosion.crashreporter;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 import com.bigxplosion.crashreporter.command.CommandDebug;
 import com.bigxplosion.crashreporter.config.Config;
@@ -34,9 +32,6 @@ public class CrashReporter {
 	public void preInit(FMLPreInitializationEvent event) {
 		log = event.getModLog();
 
-		if (event.getSide() == Side.CLIENT)
-			log.log(Level.WARN, "This mod should only be installed on servers! Do not expect any crash reporting to happen on your client!");
-
 		Config.init(event.getSuggestedConfigurationFile());
 
 		ReportRegistry.registerPastebinProvider("pastebin", new Pastebin());
@@ -52,9 +47,7 @@ public class CrashReporter {
 
 	@Mod.EventHandler
 	public void serverStarting(FMLServerStartingEvent event) {
-		if (event.getSide() == Side.SERVER) {
 			ServerLogHandler.init();
-		}
 
 		//TODO: ALWAYS remove on release!!!
 		event.registerServerCommand(new CommandDebug());
