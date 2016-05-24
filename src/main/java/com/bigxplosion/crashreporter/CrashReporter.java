@@ -50,6 +50,6 @@ public class CrashReporter {
 			ServerLogHandler.init();
 
 		//TODO: ALWAYS remove on release!!!
-		event.registerServerCommand(new CommandDebug());
+		//event.registerServerCommand(new CommandDebug());
 	}
 }
